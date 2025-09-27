@@ -3,34 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Big Navigators - Home</title>
 <style>
     body {
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
         background-color: #f4f4f9;
-    }
-    header {
-        background-color: #0b74de;
-        color: white;
-        padding: 20px;
         text-align: center;
-        position: relative;
     }
-    header img {
-        position: absolute;
-        right: 20px;
-        top: 10px;
-        height: 70px;
+    .logo {
+        margin: 20px auto;
+        height: 100px; /* adjust size if needed */
+        display: block;
     }
     .form-container {
         max-width: 500px;
-        margin: 40px auto;
+        margin: 20px auto;
         background: white;
         padding: 30px;
         border-radius: 10px;
         box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+        text-align: left;
     }
     h2 {
         text-align: center;
@@ -74,14 +67,12 @@
 </head>
 <body>
 
-<header>
-    <h1>Big Navigators Pvt Ltd</h1>
-    <img src="bnlogo.jpg" alt="Company Logo" class="logo">
-</header>
+<!-- Only logo, no header bar -->
+<img src="bnlogo.jpg" alt="Company Logo" class="logo">
 
 <div class="form-container">
     <h2>CALCULATOR FOR CIF SHIPMENTS</h2>
-    <form id="contactForm" action="https://formspree.io/f/xrbygqyq" method="POST">
+    <form id="contactForm" action="https://formspree.io/f/mrbanejy" method="POST">
         <label for="name">Contact Name</label>
         <input type="text" name="name" id="name" required>
 
@@ -109,12 +100,10 @@
             <option value="nhava sheva">Nhava Sheva</option>
         </select>
 
-        <!-- Hidden fields to send charges -->
+        <!-- Hidden fields -->
         <input type="hidden" name="originCharges" id="originCharges">
         <input type="hidden" name="destinationCharges" id="destinationCharges">
         <input type="hidden" name="thankyouMessage" id="thankyouMessage">
-
-        <!-- New hidden fields to send CBM and Weight -->
         <input type="hidden" name="submittedCBM" id="submittedCBM">
         <input type="hidden" name="submittedWeight" id="submittedWeight">
 
@@ -153,27 +142,27 @@ document.getElementById("contactForm").addEventListener("submit", function(e) {
 
     let destinationCharges = H1 + H2;
 
-    // Fill hidden fields for Formspree
+    // Hidden fields
     document.getElementById("originCharges").value = originCharges.toFixed(2);
     document.getElementById("destinationCharges").value = destinationCharges.toFixed(2);
     document.getElementById("thankyouMessage").value = "Thank you for choosing Big Navigators Pvt Ltd.";
 
-    // Heading text based on location
+    // Heading
     const heading = (location === "chennai") 
         ? "Chennai CIF Shipment" 
         : "Nhava Sheva CIF Shipment";
 
-    // Show result to user
+    // Show result
     const resultBox = document.getElementById("resultBox");
     resultBox.style.display = "block";
     resultBox.innerHTML = `
         <h3>${heading}</h3>
-         <p><strong>Total Origin Charges:</strong> ${originCharges.toFixed(2)}</p>
-        <p><strong>Total Destination Charges:</strong> ${destinationCharges.toFixed(2)}</p>
+         <p><strong>Total Origin Charges: RMB</strong> ${originCharges.toFixed(2)}</p>
+        <p><strong>Total Destination Charges: INR</strong> ${destinationCharges.toFixed(2)}</p>
         <p>Thank you for choosing Big Navigators Pvt Ltd.</p>
     `;
 
-    // Send data to Formspree
+    // Send data
     fetch(e.target.action, {
         method: e.target.method,
         body: new FormData(e.target),
